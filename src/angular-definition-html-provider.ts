@@ -17,7 +17,7 @@ export class AngularDefinitionHtmlProvider implements DefinitionProvider {
     if (!propertyName) propertyName = this.parseByRegexp(lineText, position, /{{\s*(\w+)[\.\s\w]*}}/g);
 
     // Parse attribute
-    if (!propertyName) propertyName = this.parseByRegexp(lineText, position, /\[[\w\.\-?]*\]=\"!?(\w+)[\.\w]*\"/g);
+    if (!propertyName) propertyName = this.parseByRegexp(lineText, position, /\[\(?[\w\.\-?]*\)?\]=\"!?(\w+)[\.\w]*\"/g);
 
     if (propertyName)
     {
