@@ -12,7 +12,7 @@
     ],
     "activationEvents": [
         "onLanguage:typescript",
-        "onLanguage:javascript"
+        "onLanguage:html"
     ],
     "main": "./out/src/extension",
     "contributes": {

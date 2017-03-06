@@ -5,10 +5,10 @@ import {
 import * as path from 'path';
 import * as fs from 'fs';
 
-export class AngularDefinitionProvider implements DefinitionProvider {
+export class AngularDefinitionTsProvider implements DefinitionProvider {
 
   provideDefinition(document: TextDocument, position: Position, token: CancellationToken): Definition {
-    // Apply this definition only on specific lines
+    // Apply this provider only on specific lines
     const linesFilter = ['templateUrl', 'styleUrls'];
     const lineText = document.lineAt(position).text;
     if (linesFilter.every(l => lineText.indexOf(l) === -1)) {
@@ -27,8 +27,8 @@ export class AngularDefinitionProvider implements DefinitionProvider {
     const fullPath = path.resolve(workingDir, potentialFileName);
 
     console.log('## Potential findings ##');
-    console.log("File name: " + potentialFileName);
-    console.log("Path: " + fullPath);
+    console.log('File name: ' + potentialFileName);
+    console.log('Path: ' + fullPath);
 
     if (fs.existsSync(fullPath)) {
       return new Location(Uri.file(fullPath), new Position(0, 1));
