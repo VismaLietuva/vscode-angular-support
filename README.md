@@ -11,3 +11,5 @@ WIP
   - **Not implemented!** output `(...)="myMethod"`
   - **Not implemented!** component `<my-component></my-component>`
   - **Not implemented!** custom input `[myInput]=".."` or output `(myOutput)=".."` attributes
+
+![working](images/example.gif)
