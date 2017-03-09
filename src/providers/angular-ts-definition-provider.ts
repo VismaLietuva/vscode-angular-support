@@ -5,7 +5,7 @@ import {
 import * as path from 'path';
 import * as fs from 'fs';
 
-export class AngularDefinitionTsProvider implements DefinitionProvider {
+export class AngularTsDefinitionProvider implements DefinitionProvider {
 
   provideDefinition(document: TextDocument, position: Position, token: CancellationToken): Definition {
     // Apply this provider only on specific lines

@@ -5,8 +5,9 @@ import {
 import * as path from 'path';
 import * as fs from 'fs';
 import * as ts from 'typescript';
+import { parseByLocationRegexp } from '../utils';
 
-export class AngularDefinitionHtmlProvider implements DefinitionProvider {
+export class AngularHtmlDefinitionProvider implements DefinitionProvider {
 
   provideDefinition(document: TextDocument, position: Position, token: CancellationToken) {
     const lineText = document.lineAt(position).text;
@@ -14,10 +15,10 @@ export class AngularDefinitionHtmlProvider implements DefinitionProvider {
     let propertyName: string;
 
     // Parse interpolation
-    if (!propertyName) propertyName = this.parseByRegexp(lineText, position, /{{\s*(\w+)[\.\s\w]*}}/g);
+    if (!propertyName) propertyName = parseByLocationRegexp(lineText, position.character, /{{\s*(\w+)[\.\s\w]*}}/g);
 
     // Parse attribute
-    if (!propertyName) propertyName = this.parseByRegexp(lineText, position, /\[\(?[\w\.\-?]*\)?\]=\"!?(\w+)[\.\w]*\"/g);
+    if (!propertyName) propertyName = parseByLocationRegexp(lineText, position.character, /\[\(?[\w\.\-?]*\)?\]=\"!?(\w+)[\.\w]*\"/g);
 
     if (propertyName)
     {
@@ -37,19 +38,6 @@ export class AngularDefinitionHtmlProvider implements DefinitionProvider {
     }
 
     return null;
-  }
-
-  private parseByRegexp(text: string, position: Position, regexp: RegExp) {
-    const pos = position.character - 1;
-    let propertyName: string = null;
-    let match: RegExpMatchArray;
-    while (match = regexp.exec(text)) {
-      if (match.index <= pos && regexp.lastIndex >= pos) {
-        propertyName = match[1];
-      }
-    }
-
-    return propertyName;
   }
 
   private getPropertyPosition(sourceFile: ts.SourceFile, propertyName: string): Position {
@@ -93,7 +81,6 @@ export class AngularDefinitionHtmlProvider implements DefinitionProvider {
       throw new Error(INVALID_SOURCE_ERROR);
     }
     return sourceFile;
-
   }
 
   private decompileFile(fileName: string, source: string): ts.SourceFile {

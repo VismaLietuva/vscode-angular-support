@@ -1,23 +1,21 @@
 'use strict';
 
 import { ExtensionContext, DocumentFilter, languages } from 'vscode';
-import { AngularDefinitionTsProvider } from './angular-definition-ts-provider';
-import { AngularDefinitionHtmlProvider } from './angular-definition-html-provider';
+import { AngularTsDefinitionProvider } from './providers/angular-ts-definition-provider';
+import { AngularHtmlDefinitionProvider } from './providers/angular-html-definition-provider';
 
 export function activate(context: ExtensionContext) {
-  console.log('Congratulations, your extension "vscode-angular-editor" is now active!');
+  console.log('Congratulations, extension "vscode-angular-editor" is now active!');
 
   context.subscriptions.push(languages.registerDefinitionProvider(
     { language: 'typescript', scheme: 'file' },
-    new AngularDefinitionTsProvider()
+    new AngularTsDefinitionProvider()
   ));
 
   context.subscriptions.push(languages.registerDefinitionProvider(
     { language: 'html', scheme: 'file' },
-    new AngularDefinitionHtmlProvider()
+    new AngularHtmlDefinitionProvider()
   ));
 }
 
-// this method is called when your extension is deactivated
-export function deactivate() {
-}
+export function deactivate() { }
