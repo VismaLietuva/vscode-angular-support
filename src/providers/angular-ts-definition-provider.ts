@@ -31,7 +31,7 @@ export class AngularTsDefinitionProvider implements DefinitionProvider {
     console.log('Path: ' + fullPath);
 
     if (fs.existsSync(fullPath)) {
-      return new Location(Uri.file(fullPath), new Position(0, 1));
+      return new Location(Uri.file(fullPath), new Position(0, 0));
     }
 
     return null;
