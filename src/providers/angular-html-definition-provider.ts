@@ -23,10 +23,7 @@ export class AngularHtmlDefinitionProvider implements DefinitionProvider {
     if (propertyName)
     {
       const componentFilePath = document.fileName.substr(0, document.fileName.lastIndexOf('.')) + '.ts';
-      console.log('## Potential findings ##');
-      console.log('Property name: ' + propertyName);
-      console.log('Component: ' + componentFilePath);
-
+  
       if (fs.existsSync(componentFilePath)) {
         return workspace.openTextDocument(componentFilePath).then((document) => {
           const text = document.getText();

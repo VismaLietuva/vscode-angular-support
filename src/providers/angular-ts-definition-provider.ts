@@ -26,10 +26,6 @@ export class AngularTsDefinitionProvider implements DefinitionProvider {
     const workingDir = path.dirname(document.fileName);
     const fullPath = path.resolve(workingDir, potentialFileName);
 
-    console.log('## Potential findings ##');
-    console.log('File name: ' + potentialFileName);
-    console.log('Path: ' + fullPath);
-
     if (fs.existsSync(fullPath)) {
       return new Location(Uri.file(fullPath), new Position(0, 0));
     }
