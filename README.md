@@ -1,5 +1,7 @@
 # vscode-angular-editor
 
+[![Build Status](https://travis-ci.org/VismaLietuva/vscode-angular-editor.svg?branch=master)](https://travis-ci.org/VismaLietuva/vscode-angular-editor)
+
 WIP
 
 ## Features
