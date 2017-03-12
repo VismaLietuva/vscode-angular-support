@@ -10,13 +10,3 @@ export async function openFileInVscode(filePath: string) {
 export function workspaceFilePath(filePath: string) {
   return path.join(vscode.workspace.rootPath, filePath);
 }
-
-export function catchAsync(suite: (done: MochaDone) => any) {
-  return async (done) => {
-    try {
-      await suite(done);
-    } catch (e) {
-      done(e);
-    }
-  }
-}
