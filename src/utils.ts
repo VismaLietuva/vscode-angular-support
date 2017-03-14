@@ -24,3 +24,14 @@ export function parseByLocationRegexp(text: string, position: number, regexp: Re
 
   return propertyName;
 }
+
+export function parseByLocationRegexps(text: string, position: number, regexps: RegExp[]) {
+  for (let regexp of regexps) {
+    let result;
+    if (result = parseByLocationRegexp(text, position, regexp)) {
+      return result;
+    }  
+  }
+
+  return null;
+}

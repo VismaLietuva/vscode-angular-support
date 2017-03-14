@@ -4,9 +4,16 @@
   styleUrls: ['./foo.component.css']
 })
 export class FooComponent {
-  title = '';
-  hasError: boolean;
-  value: string;
+  myProperty = '';
+  myLongProperty: string;
 
   constructor() { }
+
+  get myGetter(): boolean {
+    return false;
+  }
+
+  myMethod() {
+    // do smth
+  }
 }

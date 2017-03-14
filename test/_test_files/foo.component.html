@@ -1,4 +1,4 @@
 <div>
-  {{ title }}
-  <input type="text" [class.error]="hasError" [(ngModel)]="value">
+  {{ myProperty }}
+  <input type="text" [class.error]="myGetter" [(ngModel)]="myLongProperty" (click)="myMethod($event)">
 </div>
