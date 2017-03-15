@@ -10,7 +10,7 @@ WIP
   - interpolation `{{ myVar }}`
   - one/two way binded input `[(...)]="myVar"`
   - `templateUrl` or `styleUrls` in `@Component` decorator
-  - **Not implemented!** output `(...)="myMethod"`
+  - output `(...)="myMethod"`
   - **Not implemented!** component `<my-component></my-component>`
   - **Not implemented!** custom input `[myInput]=".."` or output `(myOutput)=".."` attributes
 
