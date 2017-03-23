@@ -26,10 +26,10 @@ export class AngularHtmlDefinitionProvider implements DefinitionProvider {
       /\*\w+=\"(.*)\"/g
     ];
     let expressionMatch: string = utils.parseByLocationRegexps(lineText, position.character, regexps);
-    if (!expressionMatch) return false;
+    if (!expressionMatch) return null;
 
     let range = document.getWordRangeAtPosition(position);
-    if (!range) return false;
+    if (!range) return null;
 
     let propertyName = document.getText(range);
 
