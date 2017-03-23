@@ -5,7 +5,7 @@
 })
 export class FooComponent {
   myProperty = '';
-  myLongProperty: string;
+  @Input() myLongProperty: string;
 
   constructor() { }
 
@@ -16,4 +16,6 @@ export class FooComponent {
   myMethod() {
     // do smth
   }
+
+  good = false;
 }

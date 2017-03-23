@@ -14,15 +14,24 @@ export class AngularHtmlDefinitionProvider implements DefinitionProvider {
 
     const regexps = [
       // Interpolation. ex: {{ myProp }}
-      /{{\s*(\w+)[\.\s\w]*}}/g,
+      /{{(.*)}}/g,
 
-      // Input attributes. ex: [...]="myProp"
-      /\[\(?[\w\.\-?]*\)?\]=\"!?(\w+)[\.\w]*\"/g,
+      // Input attributes. ex: [(...)]="myProp"
+      /\[\(?[\w\.\-?]*\)?\]=\"(.*)"/g,
 
       // Output attributes. ex: (...)="myMethod(...)"
-      /\([\w\.]*\)=\"(\w+)\([\S]*\)\"/g
+      /\([\w\.]*\)=\"(.*)\"/g,
+
+      // Structural attributes. ex: *ngIf="myProp"
+      /\*\w+=\"(.*)\"/g
     ];
-    let propertyName: string = utils.parseByLocationRegexps(lineText, position.character, regexps);
+    let expressionMatch: string = utils.parseByLocationRegexps(lineText, position.character, regexps);
+    if (!expressionMatch) return false;
+
+    let range = document.getWordRangeAtPosition(position);
+    if (!range) return false;
+
+    let propertyName = document.getText(range);
 
     const componentFilePath = document.fileName.substr(0, document.fileName.lastIndexOf('.')) + '.ts';
     

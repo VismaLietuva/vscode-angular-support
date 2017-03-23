@@ -1,4 +1,8 @@
 <div>
   {{ myProperty }}
   <input type="text" [class.error]="myGetter" [(ngModel)]="myLongProperty" (click)="myMethod($event)">
+
+  <div *ngIf="good"></div>
+  
+  {{ myProperty | myPipe }}
 </div>
