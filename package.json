@@ -1,7 +1,7 @@
 {
   "name": "vscode-angular-support",
   "displayName": "Angular Support",
-  "description": "Go to / peek angular specific defintions",
+  "description": "Go to / peek angular specific definitions",
   "version": "0.0.1",
   "publisher": "vismalietuva",
 	"icon": "images/icon.svg",
