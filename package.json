@@ -1,9 +1,10 @@
 {
-  "name": "vscode-angular-editor",
-  "displayName": "Angular Editor",
-  "description": "Editing Evolved with Angular",
+  "name": "vscode-angular-support",
+  "displayName": "Angular Support",
+  "description": "Go to / peek angular specific defintions",
   "version": "0.0.1",
-  "publisher": "dzonatan",
+  "publisher": "vismalietuva",
+	"icon": "images/icon.svg",
   "engines": {
     "vscode": "^1.10.0"
   },

@@ -5,7 +5,7 @@ import { AngularTsDefinitionProvider } from './providers/angular-ts-definition-p
 import { AngularHtmlDefinitionProvider } from './providers/angular-html-definition-provider';
 
 export function activate(context: ExtensionContext) {
-  console.log('Congratulations, extension "vscode-angular-editor" is now active!');
+  console.log('Congratulations, extension "vscode-angular-support" is now active!');
 
   context.subscriptions.push(languages.registerDefinitionProvider(
     { language: 'typescript', scheme: 'file' },

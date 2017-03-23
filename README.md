@@ -1,17 +1,26 @@
-# vscode-angular-editor
+# vscode-angular-support
 
-[![Build Status](https://travis-ci.org/VismaLietuva/vscode-angular-editor.svg?branch=master)](https://travis-ci.org/VismaLietuva/vscode-angular-editor)
+[![Build Status](https://travis-ci.org/VismaLietuva/vscode-angular-support.svg?branch=master)](https://travis-ci.org/VismaLietuva/vscode-angular-support)
 
-WIP
+Language support for angular definitions.
+
+## Prerequisites
+
+- Angular with **Typescript** *(JS version possibly in the future)*
+- *At the moment* [official style guide](https://angular.io/docs/ts/latest/guide/style-guide.html#!#naming) file naming (component `.ts` and `.html` names should match).
 
 ## Features
 
-- Go to / peek definition from:
-  - interpolation `{{ myVar }}`
-  - one/two way binded input `[(...)]="myVar"`
-  - `templateUrl` or `styleUrls` in `@Component` decorator
-  - output `(...)="myMethod"`
-  - **Not implemented!** component `<my-component></my-component>`
-  - **Not implemented!** custom input `[myInput]=".."` or output `(myOutput)=".."` attributes
+Go to / peek definition from:
+- interpolation `{{ myVar }}`
+- input `[(...)]="myVar"`
+- output `(...)="myMethod"`
+- `templateUrl` or `styleUrls` in `@Component` decorator
 
 ![working](images/example.gif)
+
+## Roadmap
+
+Go to / peek definition from:
+- component `<my-component></my-component>`
+- component input `[myInput]=".."` or output `(myOutput)=".."`
