@@ -5,6 +5,10 @@
   "version": "0.0.1",
   "publisher": "vismalietuva",
 	"icon": "images/icon.svg",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VismaLietuva/vscode-angular-support"
+  },
   "engines": {
     "vscode": "^1.10.0"
   },
