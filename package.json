@@ -12,7 +12,16 @@
   "engines": {
     "vscode": "^1.10.0"
   },
+  "keywords": [
+    "vscode",
+    "angular",
+    "typescript",
+    "support",
+    "peek",
+    "definition"
+  ],
   "categories": [
+    "Languages",
     "Other"
   ],
   "activationEvents": [
