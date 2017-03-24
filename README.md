@@ -1,6 +1,7 @@
 # vscode-angular-support
 
 [![Build Status](https://travis-ci.org/VismaLietuva/vscode-angular-support.svg?branch=master)](https://travis-ci.org/VismaLietuva/vscode-angular-support)
+[![Version](http://vsmarketplacebadge.apphb.com/version-short/vismalietuva.vscode-angular-support.svg)](https://marketplace.visualstudio.com/items?itemName=vismalietuva.vscode-angular-support)
 
 Language support for angular definitions.
 
@@ -24,3 +25,12 @@ Go to / peek definition from:
 Go to / peek definition from:
 - component `<my-component></my-component>`
 - component input `[myInput]=".."` or output `(myOutput)=".."`
+
+## Contributing
+
+Contributions are extremely welcome.  
+Read [official extension guide](https://code.visualstudio.com/docs/extensions/overview).
+
+## License
+
+MIT
