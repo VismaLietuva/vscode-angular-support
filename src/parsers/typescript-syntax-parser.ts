@@ -3,61 +3,42 @@ import * as fs from 'fs';
 import * as ts from 'typescript';
 import * as path from 'path';
 
+type FindNodePredicate = (node: ts.Node) => boolean;
+
 export class TypescriptSyntaxParser {
 
-  static async parse(sourceFilePath: string, nodeName: string, ...nodeKind: ts.SyntaxKind[]) {
-    if (!nodeName) return;
-    
+  static async parseSourceFile(sourceFilePath: string): Promise<ts.SourceFile> {
     if (fs.existsSync(sourceFilePath)) {
       const document = await vscode.workspace.openTextDocument(sourceFilePath);
       const text = document.getText();
-      const sourceFile = this.getSourceFile(sourceFilePath, text);
-      const position = this.getNodePosition(sourceFile, nodeName, ...nodeKind);
-      return position ? new vscode.Location(vscode.Uri.file(sourceFilePath), position) : null;
+      return this.getSourceFile(sourceFilePath, text);
     }
 
     return null;
   }
 
-  static getNodePosition(sourceFile: ts.SourceFile, nodeName: string, ...nodeKind: ts.SyntaxKind[]): vscode.Position {
-    // Find node by its name and kind
-    const node = this.findNode(sourceFile, nodeName, nodeKind);
-    if (!node) return null;
-
-    // Parse position
-    const position = ts.getLineAndCharacterOfPosition(sourceFile, node.name.end);
-    if (!position) return null;
-
-    return new vscode.Position(position.line, position.character);
-  }
-
-  static findNode(sourceNode: ts.Node, nodeName: string, nodeKind: ts.SyntaxKind[]) {
-    if (nodeKind.indexOf(sourceNode.kind) === -1) {
-      return this.walkChildren(sourceNode, nodeName, nodeKind);
-    }
-
-    switch (sourceNode.kind) {
-      case ts.SyntaxKind.PropertyDeclaration:
-      case ts.SyntaxKind.MethodDeclaration:
-      case ts.SyntaxKind.GetAccessor:
-      case ts.SyntaxKind.SetAccessor:
-        let declaration = sourceNode as ts.ClassElement;
-        if (declaration.name.getText() === nodeName) return declaration;
-        break;
-      default:
-        throw `Search node by '${sourceNode.kind}' type is not supported in syntax-walker.`;
-    }
-
-    return null;
-  }
-
-  static walkChildren(node: ts.Node, nodeName: string, nodeKind: ts.SyntaxKind[]) {
+  static findNode<T>(rootNode: ts.Node, predicate: FindNodePredicate, recursiveNodes?: ts.SyntaxKind[]): T {
     let result = null;
-    ts.forEachChild(node, (child) => {
-      const found = this.findNode(child, nodeName, nodeKind);
-      if (found) result = found;
+    ts.forEachChild(rootNode, (child) => {
+      // Already found, skip.
+      if (result) return;
+
+      if (recursiveNodes && recursiveNodes.indexOf(child.kind) !== -1) {
+        result = this.findNode(child, predicate, recursiveNodes)
+      } else {
+        result = predicate(child) ? child : null;
+      }
     });
+
     return result;
+  }
+
+  static parsePosition(sourceFile: ts.SourceFile, position: number): vscode.Position {
+    // Parse position
+    const lineAndChar = ts.getLineAndCharacterOfPosition(sourceFile, position);
+    if (!lineAndChar) return null;
+
+    return new vscode.Position(lineAndChar.line, lineAndChar.character);
   }
 
   static getSourceFile(fileName: string, source: string) {

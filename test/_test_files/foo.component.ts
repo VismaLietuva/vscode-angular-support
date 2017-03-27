@@ -7,7 +7,7 @@ export class FooComponent {
   myProperty = '';
   @Input() myLongProperty: string;
 
-  constructor() { }
+  constructor(public myService: MyService) { }
 
   get myGetter(): boolean {
     return false;

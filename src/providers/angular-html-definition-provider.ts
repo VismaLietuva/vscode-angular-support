@@ -9,7 +9,7 @@ import { TypescriptSyntaxParser } from '../parsers/typescript-syntax-parser';
 
 export class AngularHtmlDefinitionProvider implements DefinitionProvider {
 
-  provideDefinition(document: TextDocument, position: Position, token: CancellationToken) {
+  async provideDefinition(document: TextDocument, position: Position, token: CancellationToken) {
     const lineText = document.lineAt(position).text;
 
     const regexps = [
@@ -25,22 +25,42 @@ export class AngularHtmlDefinitionProvider implements DefinitionProvider {
       // Structural attributes. ex: *ngIf="myProp"
       /\*\w+=\"(.*)\"/g
     ];
-    let expressionMatch: string = utils.parseByLocationRegexps(lineText, position.character, regexps);
+    const expressionMatch: string = utils.parseByLocationRegexps(lineText, position.character, regexps);
     if (!expressionMatch) return null;
 
-    let range = document.getWordRangeAtPosition(position);
+    const range = document.getWordRangeAtPosition(position);
     if (!range) return null;
 
-    let propertyName = document.getText(range);
-
+    const propertyName = document.getText(range);
     const componentFilePath = document.fileName.substr(0, document.fileName.lastIndexOf('.')) + '.ts';
-    
-    const possibleSyntaxKinds = [
-      ts.SyntaxKind.PropertyDeclaration,
-      ts.SyntaxKind.MethodDeclaration,
-      ts.SyntaxKind.GetAccessor,
-      ts.SyntaxKind.SetAccessor,
-    ];
-    return TypescriptSyntaxParser.parse(componentFilePath, propertyName, ...possibleSyntaxKinds);
+
+    const sourceFile = await TypescriptSyntaxParser.parseSourceFile(componentFilePath);
+    if (!sourceFile) return null;
+
+    const recursiveSyntaxKinds = [ts.SyntaxKind.ClassDeclaration, ts.SyntaxKind.Constructor];
+    const foundNode = TypescriptSyntaxParser.findNode<ts.Declaration>(sourceFile, (node) => {
+      let declaration = node as ts.Declaration;
+      switch (node.kind) {
+        case ts.SyntaxKind.PropertyDeclaration:
+        case ts.SyntaxKind.MethodDeclaration:
+        case ts.SyntaxKind.GetAccessor:
+        case ts.SyntaxKind.SetAccessor:
+          return declaration.name.getText() === propertyName;
+        case ts.SyntaxKind.Parameter:
+          const publicAccessor = TypescriptSyntaxParser.findNode(node, (cn) => cn.kind === ts.SyntaxKind.PublicKeyword);
+          return node.parent.kind == ts.SyntaxKind.Constructor
+            && declaration.name.getText() === propertyName
+            && !!publicAccessor;
+      }
+
+      return false;
+    }, recursiveSyntaxKinds);
+
+    if (!foundNode) return null;
+
+    const declarationPos = TypescriptSyntaxParser.parsePosition(sourceFile, foundNode.name.getStart());
+    if (!declarationPos) return null;
+
+    return new Location(Uri.file(componentFilePath), declarationPos);
   }
 }
