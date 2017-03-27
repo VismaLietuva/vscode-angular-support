@@ -14,16 +14,16 @@ export class AngularHtmlDefinitionProvider implements DefinitionProvider {
 
     const regexps = [
       // Interpolation. ex: {{ myProp }}
-      /{{(.*)}}/g,
+      /({{)([^}]+)}}/g,
 
       // Input attributes. ex: [(...)]="myProp"
-      /\[\(?[\w\.\-?]*\)?\]=\"(.*)"/g,
+      /(\[\(?[\w\.\-?]*\)?\]=")([^"]+)"/g,
 
       // Output attributes. ex: (...)="myMethod(...)"
-      /\([\w\.]*\)=\"(.*)\"/g,
+      /(\([\w\.]*\)=")([^"]+)"/g,
 
       // Structural attributes. ex: *ngIf="myProp"
-      /\*\w+=\"(.*)\"/g
+      /(\*\w+=")([^"]+)"/g
     ];
     const expressionMatch: string = utils.parseByLocationRegexps(lineText, position.character, regexps);
     if (!expressionMatch) return null;

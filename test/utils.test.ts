@@ -4,7 +4,7 @@ import * as assert from 'assert';
 suite('Utils Tests', () => {
   suite('parseByLocationRegexp', () => { 
     test('should match group only in given position', () => {
-      const regexp = /{{ (\w+) }}/g;
+      const regexp = /({{ )(\w+) }}/g;
       const input = '<span>{{ myVar1 }} {{ myVar2 }}</span>';
 
       assert.equal(parseByLocationRegexp(input, 8, regexp), null);
