@@ -28,7 +28,7 @@ export class AngularHtmlDefinitionProvider implements DefinitionProvider {
     const expressionMatch: string = utils.parseByLocationRegexps(lineText, position.character, regexps);
     if (!expressionMatch) return null;
 
-    const range = document.getWordRangeAtPosition(position);
+    const range = document.getWordRangeAtPosition(position, /[$\w]+/);
     if (!range) return null;
 
     const propertyName = document.getText(range);

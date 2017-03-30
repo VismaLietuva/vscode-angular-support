@@ -27,6 +27,14 @@ suite('AngularHtmlDefinitionProvider', () => {
       assertGoToDefinition(templateFilePath, inputPosition, expectedFile, expectedPosition);
     });
 
+    test('from interpolation with elvis operator', async () => {
+      const inputPosition = new vscode.Position(8, 8);
+      const expectedFile = workspaceFilePath('foo.component.ts');
+      const expectedPosition = new vscode.Position(20, 2);
+
+      assertGoToDefinition(templateFilePath, inputPosition, expectedFile, expectedPosition);
+    });
+
     test('from one way binded input attribute', async () => {
       const inputPosition = new vscode.Position(2, 40);
       const expectedFile = workspaceFilePath('foo.component.ts');

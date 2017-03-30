@@ -18,4 +18,5 @@ export class FooComponent {
   }
 
   good = false;
+  myObj = { foo: 123 };
 }
