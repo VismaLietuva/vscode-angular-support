@@ -41,7 +41,7 @@ export class AngularHtmlDefinitionProvider implements DefinitionProvider {
   }
 
   private async elementDefinition(selector: string) {
-    const expectedFileName = `src/**/${selector.replace(/(\w+-)/, (f) => '')}.component.ts`;
+    const expectedFileName = `**/${selector.replace(/(\w+-)/, (f) => '')}.component.ts`;
     const foundFiles = await workspace.findFiles(expectedFileName, '**∕node_modules∕**', 2);
 
     // To be sure of defition origin return only when there is one match.
