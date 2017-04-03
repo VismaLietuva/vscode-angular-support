@@ -8,7 +8,7 @@ Lightweight language support for angular definitions.
 ## Prerequisites
 
 - Angular with **Typescript**
-- [Official style guide](https://angular.io/docs/ts/latest/guide/style-guide.html#!#naming) file naming (component `.ts` and `.html` names should match).
+- [Official style guide](https://angular.io/docs/ts/latest/guide/style-guide.html#!#naming) file & selector naming
 
 ## Features
 

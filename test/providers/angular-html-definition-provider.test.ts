@@ -75,4 +75,12 @@ suite('AngularHtmlDefinitionProvider', () => {
 
     await assertGoToDefinition(templateFilePath, inputPosition, expectedFile, expectedPosition);
   });
+
+  test('should resolve component', async () => {
+    const inputPosition = new vscode.Position(10, 7);
+    const expectedFile = workspaceFilePath('bar.component.ts');
+    const expectedPosition = new vscode.Position(0, 0);
+
+    await assertGoToDefinition(templateFilePath, inputPosition, expectedFile, expectedPosition);
+  });
 });

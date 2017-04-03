@@ -3,8 +3,10 @@
   <input type="text" [class.error]="myGetter" [(ngModel)]="myLongProperty" (click)="myMethod($event)">
 
   <div *ngIf="good"></div>
-  
+
   {{ myProperty | myPipe }}
   {{ myService.myProp }}
   {{ myObj?.foo }}
+
+  <xx-bar></xx-bar>
 </div>

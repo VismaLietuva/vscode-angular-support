@@ -12,7 +12,7 @@ export class AngularHtmlDefinitionProvider implements DefinitionProvider {
   async provideDefinition(document: TextDocument, position: Position, token: CancellationToken) {
     const lineText = document.lineAt(position).text;
 
-    const regexps = [
+    const propertyRegexps = [
       // Interpolation. ex: {{ myProp }}
       /({{)([^}]+)}}/g,
 
@@ -25,9 +25,34 @@ export class AngularHtmlDefinitionProvider implements DefinitionProvider {
       // Structural attributes. ex: *ngIf="myProp"
       /(\*\w+=")([^"]+)"/g
     ];
-    const expressionMatch: string = utils.parseByLocationRegexps(lineText, position.character, regexps);
-    if (!expressionMatch) return null;
+    const propertyMatch = utils.parseByLocationRegexps(lineText, position.character, propertyRegexps);
+    if (!!propertyMatch) {
+      return await this.propertyDefinition(document, position);
+    }
 
+    // Element. ex: <my-element ...>...</my-element>
+    const elementRegexp = /(<\/?)([a-zA-Z0-9-]+)/g;
+    const elementMatch = utils.parseByLocationRegexp(lineText, position.character, elementRegexp);
+    if (!!elementMatch) {
+      return await this.elementDefinition(elementMatch);
+    }
+
+    return null;
+  }
+
+  private async elementDefinition(selector: string) {
+    const expectedFileName = `src/**/${selector.replace(/(\w+-)/, (f) => '')}.component.ts`;
+    const foundFiles = await workspace.findFiles(expectedFileName, '**∕node_modules∕**', 2);
+
+    // To be sure of defition origin return only when there is one match.
+    if (foundFiles.length === 1) {
+      return new Location(Uri.file(foundFiles[0].path), new Position(0, 0));
+    }
+
+    return null;
+  }
+
+  private async propertyDefinition(document: TextDocument, position: Position) {
     const range = document.getWordRangeAtPosition(position, /[$\w]+/);
     if (!range) return null;
 
