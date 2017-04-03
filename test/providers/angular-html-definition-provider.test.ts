@@ -16,7 +16,7 @@ suite('AngularHtmlDefinitionProvider', () => {
       const expectedFile = workspaceFilePath('foo.component.ts');
       const expectedPosition = new vscode.Position(6, 2);
 
-      assertGoToDefinition(templateFilePath, inputPosition, expectedFile, expectedPosition);
+      await assertGoToDefinition(templateFilePath, inputPosition, expectedFile, expectedPosition);
     });
 
     test('from interpolation with pipe', async () => {
@@ -24,7 +24,7 @@ suite('AngularHtmlDefinitionProvider', () => {
       const expectedFile = workspaceFilePath('foo.component.ts');
       const expectedPosition = new vscode.Position(6, 2);
 
-      assertGoToDefinition(templateFilePath, inputPosition, expectedFile, expectedPosition);
+      await assertGoToDefinition(templateFilePath, inputPosition, expectedFile, expectedPosition);
     });
 
     test('from interpolation with elvis operator', async () => {
@@ -32,7 +32,7 @@ suite('AngularHtmlDefinitionProvider', () => {
       const expectedFile = workspaceFilePath('foo.component.ts');
       const expectedPosition = new vscode.Position(20, 2);
 
-      assertGoToDefinition(templateFilePath, inputPosition, expectedFile, expectedPosition);
+      await assertGoToDefinition(templateFilePath, inputPosition, expectedFile, expectedPosition);
     });
 
     test('from one way binded input attribute', async () => {
@@ -40,7 +40,7 @@ suite('AngularHtmlDefinitionProvider', () => {
       const expectedFile = workspaceFilePath('foo.component.ts');
       const expectedPosition = new vscode.Position(11, 6);
 
-      assertGoToDefinition(templateFilePath, inputPosition, expectedFile, expectedPosition);
+      await assertGoToDefinition(templateFilePath, inputPosition, expectedFile, expectedPosition);
     });
 
     test('from two way binded input attribute', async () => {
@@ -48,7 +48,7 @@ suite('AngularHtmlDefinitionProvider', () => {
       const expectedFile = workspaceFilePath('foo.component.ts');
       const expectedPosition = new vscode.Position(7, 11);
 
-      assertGoToDefinition(templateFilePath, inputPosition, expectedFile, expectedPosition);
+      await assertGoToDefinition(templateFilePath, inputPosition, expectedFile, expectedPosition);
     });
     
     test('from output attribute', async () => {
@@ -56,7 +56,7 @@ suite('AngularHtmlDefinitionProvider', () => {
       const expectedFile = workspaceFilePath('foo.component.ts');
       const expectedPosition = new vscode.Position(15, 2);
 
-      assertGoToDefinition(templateFilePath, inputPosition, expectedFile, expectedPosition);
+      await assertGoToDefinition(templateFilePath, inputPosition, expectedFile, expectedPosition);
     });
     
     test('from structural attribute', async () => {
@@ -64,7 +64,7 @@ suite('AngularHtmlDefinitionProvider', () => {
       const expectedFile = workspaceFilePath('foo.component.ts');
       const expectedPosition = new vscode.Position(19, 2);
 
-      assertGoToDefinition(templateFilePath, inputPosition, expectedFile, expectedPosition);
+      await assertGoToDefinition(templateFilePath, inputPosition, expectedFile, expectedPosition);
     });
   });
 
@@ -73,6 +73,6 @@ suite('AngularHtmlDefinitionProvider', () => {
     const expectedFile = workspaceFilePath('foo.component.ts');
     const expectedPosition = new vscode.Position(9, 21);
 
-    assertGoToDefinition(templateFilePath, inputPosition, expectedFile, expectedPosition);
+    await assertGoToDefinition(templateFilePath, inputPosition, expectedFile, expectedPosition);
   });
 });

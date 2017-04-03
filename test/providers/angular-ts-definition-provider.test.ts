@@ -15,7 +15,7 @@ suite('AngularTsDefinitionProvider', () => {
     const expectedFile = workspaceFilePath('foo.component.html');
     const expectedPosition = new vscode.Position(0, 0);
 
-    assertGoToDefinition(componentFilePath, inputPosition, expectedFile, expectedPosition);
+    await assertGoToDefinition(componentFilePath, inputPosition, expectedFile, expectedPosition);
   });
 
   test('should go to styleUrls declaration', async () => {
@@ -23,6 +23,6 @@ suite('AngularTsDefinitionProvider', () => {
     const expectedFile = workspaceFilePath('foo.component.css');
     const expectedPosition = new vscode.Position(0, 0);
 
-    assertGoToDefinition(componentFilePath, inputPosition, expectedFile, expectedPosition);
+    await assertGoToDefinition(componentFilePath, inputPosition, expectedFile, expectedPosition);
   });
 });
