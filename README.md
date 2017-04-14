@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/VismaLietuva/vscode-angular-support.svg?branch=master)](https://travis-ci.org/VismaLietuva/vscode-angular-support)
 [![Version](http://vsmarketplacebadge.apphb.com/version-short/vismalietuva.vscode-angular-support.svg)](https://marketplace.visualstudio.com/items?itemName=vismalietuva.vscode-angular-support)
 
-Lightweight language support for angular definitions.
+Very lightweight language support for angular definitions.
 
 ## Prerequisites
 
@@ -17,14 +17,9 @@ Go to / peek definition from:
 - input `[(...)]="myVar"`
 - output `(...)="myMethod"`
 - `templateUrl` or `styleUrls` in `@Component` decorator
+- component `<my-component></my-component>`
 
 ![working](images/example.gif)
-
-## Roadmap
-
-Go to / peek definition from:
-- component `<my-component></my-component>`
-- component input `[myInput]=".."` or output `(myOutput)=".."`
 
 ## Contributing
 
